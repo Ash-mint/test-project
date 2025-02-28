@@ -1,2 +1,7 @@
-*
+# Ignore everything inside the storage/app/public/thumbnails directory
+/storage/app/public/thumbnails/*
+
+# But don't ignore the default.png file
+!/storage/app/public/thumbnails/default.png
+
 !.gitignore
