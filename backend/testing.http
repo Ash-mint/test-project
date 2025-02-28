@@ -1,0 +1,9 @@
+
+
+POST http://localhost:8000/register
+
+<request>
+    <name>admin</name>
+    <password>password</password>
+    <email>admin@gmail.com</email>
+</request>
