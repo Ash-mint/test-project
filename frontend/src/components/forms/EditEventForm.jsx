@@ -129,10 +129,19 @@ const EditEventForm = () => {
     }
   };
 
+  // Show a loading indicator while fetching the event.
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+  if (error || !data || !data.id) {
+    return <Navigate to="/events" replace />;
+  }
   if (!isLoading && user.id !== data.host.id)
     return <Navigate to="/login" replace />;
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
