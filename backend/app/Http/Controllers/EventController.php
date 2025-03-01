@@ -108,7 +108,7 @@ class EventController extends Controller
         $validatedData['thumbnail_url'] = Storage::disk('public')->url($path);
     } else {
         // Default thumbnail URL if none is provided
-        $validatedData['thumbnail_url'] = Storage::disk('public')->url('thumbnails/default.jpg');
+        $validatedData['thumbnail_url'] = asset('/default.jpg');
     }  
 
     // Create the event using the validated data plus the thumbnail_url
