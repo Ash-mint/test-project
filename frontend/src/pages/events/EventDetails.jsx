@@ -16,7 +16,21 @@ const EventDetails = () => {
 
   const { mutate, isPending } = useJoinEvent();
 
-  const { data, isLoading } = useEvent(eventId);
+  const { data, isLoading, error } = useEvent(eventId);
+  if (error || !data || !data.id) {
+    return (
+      <div className="flex flex-col gap-8 items-center justify-center h-screen">
+        <h2 className="text-xl md:text-3xl text-center font-bold text-gray-700">
+          Event not found :( Please check the event ID or go back to the events
+          list.
+        </h2>
+        <Button onClick={() => nav("/events")} className="mt-4">
+          Back to Events
+        </Button>
+      </div>
+    );
+  }
+
   // Show a loading indicator while fetching the event.
   if (isLoading) {
     return (
