@@ -35,7 +35,7 @@ cd <project-directory>
 #### Install dependencies:
 
 ```bash
-cd client
+cd frontend
 npm install
 ```
 
@@ -52,7 +52,7 @@ The front-end will be accessible at `http://localhost:5173`.
 #### Install dependencies:
 
 ```bash
-cd server
+cd backend
 composer install
 ```
 
