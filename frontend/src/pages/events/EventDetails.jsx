@@ -94,6 +94,10 @@ const EventDetails = () => {
                     Join Event
                   </Button>
                 )
+              ) : user && data.joined ? (
+                <span className="bg-white min-w-[165px] border text-caramel border-e-caramel font-bold py-3 px-6 text-center">
+                  Already joined
+                </span>
               ) : (
                 <span className="bg-white min-w-[165px] border text-red-900 border-e-red-800 font-bold py-3 px-6 text-center">
                   Event is Full
