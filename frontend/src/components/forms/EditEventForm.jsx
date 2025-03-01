@@ -14,7 +14,7 @@ const EditEventForm = () => {
   const { eventId } = useParams();
 
   const { data, isLoading, error } = useEvent(eventId);
-  const { mutate } = useUpdateEvent();
+  const { mutate, isPending } = useUpdateEvent();
 
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
 
@@ -281,7 +281,13 @@ const EditEventForm = () => {
                 >
                   Cancel
                 </Link>
-                <Button type="submit">Edit</Button>
+                <Button
+                  disabled={isPending}
+                  type="submit"
+                  className="w-full sm:w-auto"
+                >
+                  {isPending ? "Loading..." : "Edit"}
+                </Button>
               </div>
             </form>
           </div>

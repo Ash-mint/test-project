@@ -51,7 +51,7 @@ const eventSchema = z
 
 const CreateEventForm = () => {
   const nav = useNavigate();
-  const { mutate } = useCreateEvent();
+  const { mutate, isPending } = useCreateEvent();
 
   const {
     register,
@@ -193,7 +193,13 @@ const CreateEventForm = () => {
                 >
                   Cancel
                 </Link>
-                <Button type="submit">Create</Button>
+                <Button
+                  disabled={isPending}
+                  type="submit"
+                  className="w-full sm:w-auto"
+                >
+                  {isPending ? "Loading..." : "Create"}
+                </Button>
               </div>
             </form>
           </div>
