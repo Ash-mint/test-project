@@ -89,12 +89,12 @@ const Login = () => {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-end mt-4">
+      <div className="flex items-center flex-col-reverse gap-y-3 mt-4">
         <Link
-          to="/forgot-password"
+          to="/register"
           className="underline text-sm text-gray-600 hover:text-gray-900"
         >
-          Forgot your password?
+          Don't have an account ?
         </Link>
         <Button type="submit" className="ml-3">
           Login

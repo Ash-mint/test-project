@@ -117,7 +117,7 @@ const Register = () => {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center flex-col-reverse gap-y-3 mt-4">
         <Link
           to="/login"
           className="underline text-sm text-gray-600 hover:text-gray-900"
