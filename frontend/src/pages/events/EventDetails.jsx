@@ -12,11 +12,21 @@ const EventDetails = () => {
   const nav = useNavigate();
   const { user } = useAuth();
 
-  const { mutate: del } = useDeleteEvent();
+  const { mutate: del, isPending: isDelPending } = useDeleteEvent();
 
   const { mutate, isPending } = useJoinEvent();
 
   const { data, isLoading, error } = useEvent(eventId);
+
+  // Show a loading indicator while fetching the event.
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
   if (error || !data || !data.id) {
     return (
       <div className="flex flex-col gap-8 items-center justify-center h-screen">
@@ -27,15 +37,6 @@ const EventDetails = () => {
         <Button onClick={() => nav("/events")} className="mt-4">
           Back to Events
         </Button>
-      </div>
-    );
-  }
-
-  // Show a loading indicator while fetching the event.
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
       </div>
     );
   }
@@ -75,10 +76,11 @@ const EventDetails = () => {
               </Button>
               <Button
                 onClick={deleteEvent}
+                disabled={isDelPending}
                 type="button"
                 className="!bg-red-700 w-full sm:w-44"
               >
-                Delete Event
+                {isDelPending ? "Loading..." : "Delete Event"}
               </Button>
             </div>
           ) : (
