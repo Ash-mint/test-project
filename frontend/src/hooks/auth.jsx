@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Navigate, useParams } from "react-router";
 import axios from "../lib/axios";
 import { createContext, useContext } from "react";
+import { toast } from "sonner";
 
 const AuthContext = createContext();
 
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
       await axios.post("/register", props);
       // invalidate the 'user' query to refetch its data
       queryClient.invalidateQueries("user");
+      toast.success("Account created successfully!");
       return <Navigate to="/dashboard" replace state={{ from: location }} />;
     } catch (error) {
       if (error.response?.status === 422) {
@@ -60,6 +62,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await axios.post("/login", props);
       queryClient.invalidateQueries("user");
+      toast.success("Logged in successfully :D");
       return <Navigate to="/dashboard" replace state={{ from: location }} />;
     } catch (error) {
       if (error.response?.status === 422) {
@@ -120,7 +123,6 @@ export const AuthProvider = ({ children }) => {
     if (!error) {
       await axios.post("/logout");
       queryClient.invalidateQueries("user");
-      //      return <Navigate to="/login" replace state={{ from: location }} />;
     }
     window.location.pathname = "/login";
   };
