@@ -32,25 +32,6 @@ const HighlightsTabs = () => {
             </div>
           ) : (
             <Table data={data.hosted} />
-            // <div className="flex-4">
-            //   <div className="flex flex-row flex-wrap justify-start gap-10">
-            //     {data &&
-            //       data.hosted.map((event) => (
-            //         <Card
-            //           key={event.id}
-            //           link={`/events/${event.id}`}
-            //           title={event.title}
-            //           date={event.start_date}
-            //           duration={Math.floor(
-            //             (new Date(event.end_date) -
-            //               new Date(event.start_date)) /
-            //               (1000 * 60 * 60)
-            //           )}
-            //           location={event.location}
-            //         />
-            //       ))}
-            //   </div>
-            // </div>
           )}
         </div>
       ),
