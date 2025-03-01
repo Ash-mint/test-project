@@ -54,10 +54,10 @@
 <body>
   <div class="container">
     <h1>🎉 Your Event Has Been Created, {{ $user->name }}!</h1>
-    <p>Congratulations! Your event <strong>{{ $event->name }}</strong> has been successfully created and is scheduled for <strong>{{ $event->start_date }}</strong>.</p>
+    <p>Congratulations! Your event <strong>{{ $event->title }}</strong> has been successfully created and is scheduled for <strong>{{ $event->start_date }}</strong>.</p>
 
     <div class="event-details">
-      <p><strong>Event:</strong> {{ $event->name }}</p>
+      <p><strong>Event:</strong> {{ $event->title }}</p>
       <p><strong>Date:</strong> {{ $event->start_date }}</p>
       <p><strong>Location:</strong> {{ $event->location }}</p>
     </div>

@@ -54,10 +54,10 @@
 <body>
   <div class="container">
     <h1>🎉 You're in, {{ $user->name }}!</h1>
-    <p>You've successfully registered for <strong>{{ $event->name }}</strong> happening on <strong>{{ $event->start_date }}</strong>.</p>
+    <p>You've successfully registered for <strong>{{ $event->title }}</strong> happening on <strong>{{ $event->start_date }}</strong>.</p>
     
     <div class="event-details">
-      <p><strong>Event:</strong> {{ $event->name }}</p>
+      <p><strong>Event:</strong> {{ $event->title }}</p>
       <p><strong>Date:</strong> {{ $event->start_date }}</p>
       <p><strong>Location:</strong> {{ $event->location }}</p>
     </div>

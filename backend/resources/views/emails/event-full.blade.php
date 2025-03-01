@@ -54,10 +54,10 @@
 <body>
   <div class="container">
     <h1>⚠️ Your Event is Now Full, {{ $user->name }}!</h1>
-    <p>We wanted to let you know that your event <strong>{{ $event->name }}</strong> has reached its full capacity and is now officially booked out!</p>
+    <p>We wanted to let you know that your event <strong>{{ $event->title }}</strong> has reached its full capacity and is now officially booked out!</p>
 
     <div class="event-details">
-      <p><strong>Event:</strong> {{ $event->name }}</p>
+      <p><strong>Event:</strong> {{ $event->title }}</p>
       <p><strong>Date:</strong> {{ $event->start_date }}</p>
       <p><strong>Location:</strong> {{ $event->location }}</p>
     </div>
