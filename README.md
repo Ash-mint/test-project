@@ -98,14 +98,6 @@ Run the migrations to set up the database:
 php artisan migrate
 ```
 
-### 5. Seeding (Optional):
-
-To seed some test data (e.g., events, users), you can run:
-
-```bash
-php artisan db:seed
-```
-
 ## Configuration
 
 ### Email Notifications
