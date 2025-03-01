@@ -59,4 +59,9 @@ export const routes = [
       },
     ],
   },
+  // Catch-all route for 404
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ];
