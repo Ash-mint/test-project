@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\EventJoined;
+use App\Mail\EventDeleted;
 use App\Mail\EventCreated;
 use App\Mail\EventFull;
 use Illuminate\Support\Facades\Mail;
@@ -123,8 +124,11 @@ class EventController extends Controller
         'thumbnail_url' => $validatedData['thumbnail_url'],
     ]);
 
-    // Send email to the event creator
-    Mail::to($event->host->email)->send(new EventCreated($event, $event->host));
+    // Send email to the event creator    
+    if(config('app.send_email_notifications', true)) { // if notifications are enabled
+        Mail::to($event->host->email)->send(new EventCreated($event, $event->host));
+    }
+
 
     return response()->json($event, 201); // Return the created event with a 201 status
 }
@@ -157,12 +161,14 @@ public function join(string $id)
     $event->users()->attach($user->id);
 
     // Send confirmation email to the user
-    Mail::to($user->email)->send(new EventJoined($event, $user));
+    if(config('app.send_email_notifications', true)) { // if notifications are enabled
+        Mail::to($user->email)->send(new EventJoined($event, $user));
 
-    // Check if event is full after the user joins
-    if ($event->users()->count() >= $event->max_participants) {
-        // Send email to the event creator notifying the event is full
-        Mail::to($event->user->email)->send(new EventFull($event, $event->user));
+        // Check if event is full after the user joins
+        if ($event->users()->count() >= $event->max_participants) {
+            // Send email to the event creator notifying the event is full
+            Mail::to($event->host->email)->send(new EventFull($event, $event->host));
+        }
     }
 
     // Return success message
@@ -253,16 +259,25 @@ public function join(string $id)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+        public function destroy(string $id)
     {
         $event = Event::findOrFail($id);
 
         if (Auth::id() !== $event->user_id) {
-            return response()->json(['message' => 'Why are trying to delete an event that is not yours >:('], 403);
-        }        
+            return response()->json(['message' => 'You are not authorized to delete this event'], 403);
+        }
 
+        // Get event creator's email before deleting the event
+        $user = $event->host;
+
+        // Delete the event
         $event->delete();
 
-        return response()->json(['message' => 'Successfully deleted the event'], 200);
+        // Send email notification
+        if(config('app.send_email_notifications', true)) { // if notifications are enabled
+            Mail::to($user->email)->send(new EventDeleted($event, $user));
+        }
+
+        return response()->json(["message" => "Event deleted successfully."], 200);
     }
 }

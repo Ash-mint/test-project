@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'send_email_notifications' => env('SEND_EMAIL_NOTIFICATIONS', true),
 
     /*
     |--------------------------------------------------------------------------
