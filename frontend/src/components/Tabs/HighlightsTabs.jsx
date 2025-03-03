@@ -71,6 +71,7 @@ const HighlightsTabs = () => {
                           (1000 * 60 * 60)
                       )}
                       location={event.location}
+                      image={event.thumbnail_url}
                     />
                   ))}
               </div>

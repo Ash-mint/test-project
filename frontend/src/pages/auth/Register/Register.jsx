@@ -15,13 +15,14 @@ const Register = () => {
     redirectIfAuthenticated: "/dashboard",
   });
   const [serverErrors, setServerErrors] = useState([]);
+  const [loading, setLoading] = useState(false); // Track loading state
 
   // Validation Schema
   const registerSchema = z
     .object({
       name: z.string().min(2, "Name is required"),
       email: z.string().email("Invalid email address"),
-      password: z.string().min(6, "Password must be at least 6 characters"),
+      password: z.string().min(8, "Password must be at least 8 characters"),
       passwordConfirmation: z.string(),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
@@ -36,14 +37,16 @@ const Register = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(registerSchema) });
 
-  const submitForm = (data) => {
-    registerUser({
+  const submitForm = async (data) => {
+    setLoading(true); // Set loading to true when the form starts submitting
+    await registerUser({
       name: data.name,
       email: data.email,
       password: data.password,
       password_confirmation: data.passwordConfirmation,
       setErrors: setServerErrors,
     });
+    setLoading(false);
   };
 
   return (
@@ -124,7 +127,9 @@ const Register = () => {
         >
           Already have an account? Login
         </Link>
-        <Button type="submit">Register</Button>
+        <Button type="submit" className="ml-3" disabled={loading}>
+          {loading ? "Loading..." : "Register"}
+        </Button>
       </div>
     </form>
   );

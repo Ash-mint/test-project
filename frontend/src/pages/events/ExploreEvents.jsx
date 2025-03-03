@@ -4,11 +4,15 @@ import Card from "../../components/Ui/Card";
 import Input from "../../components/Ui/Input/Input";
 import Button from "../../components/Ui/Button";
 import { SearchIcon } from "lucide-react";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
+import events from "../../assets/events.svg";
+import CallToAction from "../../components/Sections/CallToAction";
+import { toast } from "sonner";
 
 const ExploreEvents = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm = searchParams.get("search") || "";
+  const nav = useNavigate();
 
   const getEvents = async (search) => {
     const response = await axios.get(
@@ -33,7 +37,7 @@ const ExploreEvents = () => {
       setSearchParams({});
     }
   };
-  if (error) return <div>{error.message}</div>;
+  if (error) toast.error(error.message);
   return (
     <div className="flex flex-col gap-8 items-start p-4">
       <form onSubmit={handleSearch} className="w-full">
@@ -61,8 +65,8 @@ const ExploreEvents = () => {
         <div>Loading...</div>
       ) : (
         <div className="flex flex-row flex-wrap justify-center md:justify-start gap-10">
-          {data &&
-            data.data.map((event) => (
+          {data ? (
+            data.map((event) => (
               <Card
                 key={event.id}
                 link={`/events/${event.id}`}
@@ -75,7 +79,16 @@ const ExploreEvents = () => {
                 location={event.location}
                 image={event.thumbnail_url}
               />
-            ))}
+            ))
+          ) : (
+            <CallToAction
+              title="Whoops ! looks like there are no events :("
+              para=""
+              img={events}
+              action="Create Event"
+              actionFunc={() => nav("/events/create")}
+            />
+          )}
         </div>
       )}
     </div>

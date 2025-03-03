@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const Login = () => {
   const { login } = useAuth();
   const [serverErrors, setServerErrors] = useState([]);
+  const [loading, setLoading] = useState(false); // Track loading state
 
   // Validation Schema
   const eventSchema = z.object({
@@ -27,13 +28,15 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(eventSchema) });
 
-  const submitForm = (data) => {
-    login({
+  const submitForm = async (data) => {
+    setLoading(true); // Set loading to true when the form starts submitting
+    await login({
       email: data.email,
       password: data.password,
       remember: data.rememberMe || false,
       setErrors: setServerErrors,
     });
+    setLoading(false);
   };
 
   return (
@@ -96,8 +99,8 @@ const Login = () => {
         >
           Don't have an account ?
         </Link>
-        <Button type="submit" className="ml-3">
-          Login
+        <Button type="submit" className="ml-3" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
         </Button>
       </div>
     </form>
