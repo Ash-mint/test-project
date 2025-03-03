@@ -53,7 +53,7 @@
         <p>Hi {{ $user->name }},</p>
         <p>Your event <strong>{{ $event->title }}</strong> scheduled for <strong>{{ $event->start_date }}</strong> has been successfully deleted.</p>
         <p>If this was a mistake, you may create a new event anytime.</p>
-        <a href="http://localhost:5173/events/create" class="button">Create a New Event</a>
+        <a href="{{ config('app.frontend_url') }}/events/create" class="button">Create a New Event</a>
         <p class="footer">If you have any questions, feel free to contact us.</p>
     </div>
 </body>

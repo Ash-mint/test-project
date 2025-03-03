@@ -63,7 +63,7 @@
     </div>
 
     <p>If you have any questions or need assistance, please feel free to reach out. You can always manage your event below:</p>
-    <a href="http://localhost:5173/events/{{ $event->id }}" class="btn" target="_blank">Manage Event</a>
+    <a href="{{ config('app.frontend_url') }}/{{ $event->id }}" class="btn" target="_blank">Manage Event</a>
 
     <p class="footer">Thank you for hosting and creating such a popular event! 🥳</p>
     <p class="footer"><strong>EventPulse</strong></p>

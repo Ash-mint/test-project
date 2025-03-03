@@ -63,7 +63,7 @@
     </div>
 
     <p>Click below to view event details:</p>
-    <a href="http://localhost:5173/events/{{ $event->id }}" class="btn" target="_blank">View Event</a>
+    <a href="{{ config('app.frontend_url') }}/{{ $event->id }}" class="btn" target="_blank">View Event</a>
 
     <p class="footer">If you have any questions, feel free to reach out. See you soon!</p>
     <p class="footer"><strong>EventPulse</strong></p>
