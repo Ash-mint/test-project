@@ -47,7 +47,7 @@ class EventController extends Controller
         }
 
         // Get paginated results
-        $events = $eventsQuery->paginate(15);
+        $events = $eventsQuery->get();
     
         return response()->json($events);
     }
